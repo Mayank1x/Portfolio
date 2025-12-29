@@ -33,12 +33,13 @@ const Navbar = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 zIndex: 100,
-                backgroundColor: scrolled ? 'rgba(0,0,0,0.8)' : 'transparent',
+                backgroundColor: scrolled ? 'var(--bg-primary)' : 'transparent', // Use variable for bg
                 backdropFilter: scrolled ? 'blur(10px)' : 'none',
                 transition: 'all 0.3s ease',
-                mixBlendMode: isOpen ? 'normal' : 'difference'
+                mixBlendMode: isOpen ? 'normal' : 'difference', // Keep difference for contrast on hero
+                borderBottom: scrolled ? '1px solid var(--accent-color)' : 'none'
             }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.2rem', color: '#fff' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.2rem', color: 'var(--text-primary)' }}>
                     <Terminal size={24} />
                     <span>DEV.PORTFOLIO</span>
                 </div>
@@ -49,7 +50,7 @@ const Navbar = () => {
                         <a
                             key={link.name}
                             href={link.href}
-                            style={{ color: '#fff', fontSize: '1rem', fontWeight: 500 }}
+                            style={{ color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 500 }}
                             className="nav-link"
                         >
                             {link.name}
@@ -58,7 +59,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile Hamburger */}
-                <div className="mobile-toggle" style={{ display: 'none', cursor: 'pointer', color: '#fff' }} onClick={() => setIsOpen(!isOpen)}>
+                <div className="mobile-toggle" style={{ display: 'none', cursor: 'pointer', color: 'var(--text-primary)' }} onClick={() => setIsOpen(!isOpen)}>
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
                 </div>
             </nav>
@@ -76,7 +77,7 @@ const Navbar = () => {
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            backgroundColor: '#000',
+                            backgroundColor: 'var(--bg-primary)',
                             zIndex: 99,
                             display: 'flex',
                             flexDirection: 'column',
@@ -90,7 +91,7 @@ const Navbar = () => {
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                style={{ fontSize: '2rem', fontWeight: 'bold', color: '#fff' }}
+                                style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--text-primary)' }}
                             >
                                 {link.name}
                             </a>

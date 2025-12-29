@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import playKeystrokeSound from '../utils/SoundManager';
 
 const Terminal = () => {
     const [input, setInput] = useState('');
@@ -10,7 +11,6 @@ const Terminal = () => {
 
     const containerRef = useRef(null);
     const inputRef = useRef(null);
-    const cardRef = useRef(null);
 
     useEffect(() => {
         if (containerRef.current) {
@@ -31,29 +31,12 @@ const Terminal = () => {
         return () => { if (container) container.removeEventListener('click', handleClick); };
     }, []);
 
-    // Subtle 3D Tilt Logic
-    const handleMouseMove = (e) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Calculate rotation (Max 5 degrees for subtlety)
-        const rotateY = ((x / rect.width) - 0.5) * 8;
-        const rotateX = ((y / rect.height) - 0.5) * -8;
-
-        cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    };
-
-    const handleMouseLeave = () => {
-        if (cardRef.current) {
-            // Reset position
-            cardRef.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        }
-    };
-
     const handleCommand = (cmd) => {
         const cleanCmd = cmd.trim().toLowerCase();
+
+        // Audio Feedback for command entry
+        playKeystrokeSound();
+
         const newHistory = [...history, { type: 'user', content: cmd }];
         let output = '';
 
@@ -65,6 +48,7 @@ const Terminal = () => {
   whoami      - My Profile
   skills      - Tech Stack
   contact     - Socials
+  mode light  - Invert Colors
   clear       - Clear`;
                 break;
             case cleanCmd === 'ls': output = 'about/    projects/    contact/'; break;
@@ -80,6 +64,18 @@ const Terminal = () => {
             case cleanCmd === 'skills': output = 'Java, React, DSA, Spring'; break;
             case cleanCmd === 'contact': output = 'hello@example.com'; break;
             case cleanCmd === 'date': output = new Date().toString(); break;
+
+            // Invert Mode Logic
+            case cleanCmd === 'mode light':
+            case cleanCmd === 'invert':
+                document.body.classList.add('light-mode');
+                output = 'Visual mode inverted (Light Mode Active).';
+                break;
+            case cleanCmd === 'mode dark':
+                document.body.classList.remove('light-mode');
+                output = 'Visual mode restored (Dark Mode Active).';
+                break;
+
             case cleanCmd === 'clear': setHistory([]); return;
             case cleanCmd === '': output = ''; break;
             default: output = `Not found: ${cmd}`;
@@ -89,6 +85,10 @@ const Terminal = () => {
     };
 
     const handleKeyDown = (e) => {
+        // Play sound on every key (throttled/natural feel)
+        if (e.key.length === 1 || e.key === 'Enter' || e.key === 'Backspace') {
+            playKeystrokeSound();
+        }
         if (e.key === 'Enter') { handleCommand(input); setInput(''); }
     };
 
@@ -111,15 +111,15 @@ const Terminal = () => {
                 style={{
                     width: '100%',
                     height: '100%',
-                    background: 'rgba(5, 5, 5, 0.85)', // Increased opacity for visibility
-                    backdropFilter: 'blur(8px)',       // Reduced blur for performance
+                    background: 'var(--term-bg)', // Dynamic Background
+                    backdropFilter: 'blur(8px)',
                     WebkitBackdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    border: '1px solid var(--term-border)', // Dynamic Border
                     borderRadius: '12px',
                     fontFamily: "'Courier New', Courier, monospace",
                     display: 'flex',
                     flexDirection: 'column',
-                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)', // Standard clean shadow
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
                     overflow: 'hidden',
                     position: 'relative',
                     cursor: 'grab'
@@ -128,8 +128,8 @@ const Terminal = () => {
                 {/* Header with Grab Area */}
                 <div style={{
                     padding: '12px 16px',
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                    background: 'var(--term-header-bg)',
+                    borderBottom: '1px solid var(--term-border)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
@@ -139,7 +139,7 @@ const Terminal = () => {
                         <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#FEBC2E' }}></div>
                         <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#28C840' }}></div>
                     </div>
-                    <div style={{ flex: 1, textAlign: 'center', color: '#666', fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.5px' }}>
+                    <div style={{ flex: 1, textAlign: 'center', color: 'var(--term-text)', fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.5px' }}>
                         mayank @ dev
                     </div>
                 </div>
@@ -151,7 +151,7 @@ const Terminal = () => {
                         flex: 1,
                         padding: '16px',
                         overflowY: 'auto',
-                        color: '#ddd',
+                        color: 'var(--term-text)',
                         fontSize: '0.95rem',
                         lineHeight: '1.6',
                         scrollBehavior: 'auto',
@@ -161,16 +161,16 @@ const Terminal = () => {
                         <div key={i} style={{
                             marginBottom: '6px',
                             whiteSpace: 'pre-wrap',
-                            color: line.type === 'user' ? '#fff' : '#aaa',
-                            textShadow: line.type === 'user' ? '0 0 10px rgba(255,255,255,0.2)' : 'none'
+                            color: line.type === 'user' ? 'var(--term-text)' : 'var(--term-text)', // Fixed: User text should also be light
+                            textShadow: line.type === 'user' ? 'none' : 'none'
                         }}>
-                            {line.type === 'user' && <span style={{ color: '#28C840', marginRight: '10px' }}>➜</span>}
+                            {line.type === 'user' && <span style={{ color: 'var(--term-caret)', marginRight: '10px' }}>➜</span>}
                             {line.content}
                         </div>
                     ))}
 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <span style={{ color: '#28C840', marginRight: '10px' }}>➜</span>
+                        <span style={{ color: 'var(--term-caret)', marginRight: '10px' }}>➜</span>
                         <input
                             ref={inputRef}
                             type="text"
@@ -180,14 +180,14 @@ const Terminal = () => {
                             style={{
                                 background: 'transparent',
                                 border: 'none',
-                                color: '#fff',
-                                caretColor: '#28C840',
+                                color: 'var(--term-text)', // Fixed: Use terminal text color, not global text color
+                                caretColor: 'var(--term-caret)',
                                 outline: 'none',
                                 flex: 1,
                                 fontFamily: 'inherit',
                                 fontSize: 'inherit',
                                 minWidth: '50px',
-                                textShadow: '0 0 10px rgba(255,255,255,0.2)'
+                                textShadow: 'none'
                             }}
                             autoFocus
                         />

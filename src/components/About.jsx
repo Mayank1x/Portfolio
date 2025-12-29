@@ -31,9 +31,10 @@ const About = () => {
             minHeight: '100vh',
             width: '100%',
             padding: '8rem 5%',
-            background: '#000',
-            color: '#fff',
-            position: 'relative'
+            background: 'var(--bg-primary)',
+            color: 'var(--text-primary)',
+            position: 'relative',
+            transition: 'background 0.3s, color 0.3s'
         }}>
             <motion.div
                 initial={{ opacity: 0 }}
@@ -44,7 +45,7 @@ const About = () => {
                 <h2 style={{
                     fontSize: '3rem',
                     marginBottom: '4rem',
-                    borderBottom: '1px solid #333',
+                    borderBottom: '1px solid var(--accent-color)',
                     paddingBottom: '1rem',
                     display: 'inline-block'
                 }}>
@@ -64,22 +65,22 @@ const About = () => {
                             transition={{ delay: index * 0.2, duration: 0.5 }}
                             whileHover={{
                                 y: -10,
-                                backgroundColor: '#111',
-                                boxShadow: '0 10px 30px rgba(255,255,255,0.05)'
+                                backgroundColor: 'var(--accent-color)',
+                                boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
                             }}
                             style={{
                                 padding: '2rem',
-                                border: '1px solid #222',
+                                border: '1px solid var(--accent-color)',
                                 borderRadius: '4px',
                                 cursor: 'pointer',
                                 transition: 'background-color 0.3s'
                             }}
                         >
-                            <div style={{ marginBottom: '1.5rem', color: '#888' }}>
+                            <div style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
                                 {skill.icon}
                             </div>
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{skill.title}</h3>
-                            <p style={{ color: '#888', marginBottom: '1.5rem', lineHeight: '1.6' }}>
+                            <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
                                 {skill.desc}
                             </p>
                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -87,9 +88,9 @@ const About = () => {
                                     <span key={i} style={{
                                         fontSize: '0.8rem',
                                         padding: '0.2rem 0.6rem',
-                                        border: '1px solid #444',
+                                        border: '1px solid var(--accent-hover)',
                                         borderRadius: '100px',
-                                        color: '#ccc'
+                                        color: 'var(--text-secondary)'
                                     }}>
                                         {t}
                                     </span>

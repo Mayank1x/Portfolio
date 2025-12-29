@@ -1,9 +1,56 @@
 :root {
-  --bg-color: #000000;
-  --text-color: #ffffff;
+  /* DARK MODE (DEFAULT) */
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0a;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
   --accent-color: #222222;
-  --accent-hover: #444444;
+
+  /* Terminal Specifics (Dark) */
+  --term-bg: rgba(10, 10, 10, 0.9);
+  --term-border: rgba(255, 255, 255, 0.15);
+  --term-header-bg: rgba(255, 255, 255, 0.05);
+  --term-text: #dddddd;
+  --term-caret: #28C840;
+
+  /* Hero/Spotlight (Dark) */
+  --spotlight-text-base: #333333;
+  --spotlight-text-reveal: #ffffff;
+  --spotlight-desc: #555555;
+  --spotlight-desc-reveal: #dddddd;
+
   --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body.light-mode {
+  /* LIGHT MODE OVERRIDES */
+  --bg-primary: #ffffff;
+  /* Clean white */
+  --bg-secondary: #f4f4f5;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+
+  /* Terminal Specifics (KEEPING DARK) */
+  --term-bg: rgba(10, 10, 10, 0.95);
+  /* Dark terminal on white background */
+  --term-border: rgba(0, 0, 0, 0.2);
+  --term-header-bg: rgba(255, 255, 255, 0.05);
+  --term-text: #dddddd;
+  --term-caret: #28C840;
+
+  /* Hero/Spotlight (Light) */
+  --spotlight-text-base: #e5e5e5;
+  --spotlight-text-reveal: #000000;
+  --spotlight-desc: #888888;
+  --spotlight-desc-reveal: #222222;
+
+  filter: none;
+}
+
+/* No image inversion needed for true light mode usually, unless specific desire */
+body.light-mode img,
+body.light-mode video {
+  filter: none;
 }
 
 html {
@@ -17,8 +64,8 @@ html {
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-main);
   line-height: 1.5;
   font-weight: 400;
@@ -27,12 +74,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  /* Prevent horizontal scroll from animations */
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Scrollbar Customization */
@@ -41,7 +83,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-color);
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {

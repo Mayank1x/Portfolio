@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import Terminal from './Terminal';
 import InteractiveBackground from './InteractiveBackground';
+import GlitchText from './GlitchText';
 import HackerText from './HackerText';
 import { ArrowDown } from 'lucide-react';
 
@@ -73,7 +74,7 @@ const Hero = () => {
                         <h2 style={{
                             fontSize: '1.2rem',
                             marginBottom: '1.5rem',
-                            color: '#666',
+                            color: 'var(--spotlight-desc)',
                             letterSpacing: '3px',
                             fontWeight: 600,
                             fontFamily: "'Inter', sans-serif" // Clean sans-serif
@@ -85,7 +86,7 @@ const Hero = () => {
                             lineHeight: 0.95,
                             marginBottom: '2rem',
                             fontWeight: 800,
-                            color: '#1a1a1a', // Almost blended with background
+                            color: 'var(--spotlight-text-base)', // Almost blended with background
                             fontFamily: "'Inter', sans-serif",
                             letterSpacing: '-2px'
                         }}>
@@ -96,7 +97,7 @@ const Hero = () => {
                         <p style={{
                             fontSize: '1.2rem',
                             maxWidth: '500px',
-                            color: '#555',
+                            color: 'var(--spotlight-desc)',
                             lineHeight: 1.6,
                             fontFamily: "'Inter', sans-serif"
                         }}>
@@ -109,7 +110,7 @@ const Hero = () => {
                         <h2 style={{
                             fontSize: '1.2rem',
                             marginBottom: '1.5rem',
-                            color: '#fff',
+                            color: 'var(--spotlight-text-reveal)',
                             letterSpacing: '3px',
                             fontWeight: 600,
                             fontFamily: "'Inter', sans-serif"
@@ -121,7 +122,7 @@ const Hero = () => {
                             lineHeight: 0.95,
                             marginBottom: '2rem',
                             fontWeight: 800,
-                            color: '#fff',
+                            color: 'var(--spotlight-text-reveal)',
                             fontFamily: "'Inter', sans-serif",
                             letterSpacing: '-2px'
                         }}>
@@ -132,7 +133,7 @@ const Hero = () => {
                         <p style={{
                             fontSize: '1.2rem',
                             maxWidth: '500px',
-                            color: '#ddd',
+                            color: 'var(--spotlight-desc-reveal)',
                             lineHeight: 1.6,
                             fontFamily: "'Inter', sans-serif"
                         }}>
@@ -142,31 +143,66 @@ const Hero = () => {
                 </div>
             </div>
 
-            {/* Scroll Indicator */}
+
+            {/* Terminal Layer (Right Side) */}
+            <div style={{
+                position: 'absolute',
+                top: '50%',
+                right: '5%',
+                transform: 'translateY(-50%)',
+                zIndex: 2,
+                width: '45%',
+                maxWidth: '600px',
+                pointerEvents: 'none' // Let clicks pass through container to Terminal's drag area
+            }}>
+                <div style={{ pointerEvents: 'auto' }}>
+                    <Terminal />
+                </div>
+            </div>
+
+            {/* Scroll Indicator: Minimal Mouse Animation */}
             <motion.div
                 style={{
                     position: 'absolute',
-                    bottom: '40px',
+                    bottom: '50px',
                     left: '50%',
-                    translateX: '-50%',
-                    color: '#888', // Subtle grey
-                    zIndex: 10
+                    x: '-50%', // Correct Framer Motion syntax for centering
+                    zIndex: 10,
+                    opacity: 0.5
                 }}
-                animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1, duration: 1 }}
             >
                 <div style={{
+                    width: '24px',
+                    height: '40px',
+                    border: '2px solid rgba(255, 255, 255, 0.4)',
+                    borderRadius: '20px',
                     display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '8px',
-                    opacity: 0.6
+                    justifyContent: 'center',
+                    paddingTop: '8px'
                 }}>
-                    <span style={{ fontSize: '0.7rem', letterSpacing: '3px', fontFamily: "'Inter', sans-serif" }}>SCROLL</span>
-                    <ArrowDown size={18} />
+                    <motion.div
+                        style={{
+                            width: '4px',
+                            height: '4px',
+                            backgroundColor: '#fff',
+                            borderRadius: '50%'
+                        }}
+                        animate={{
+                            y: [0, 12, 0],
+                            opacity: [1, 0, 0] // Fade out as it moves down
+                        }}
+                        transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    />
                 </div>
             </motion.div>
-        </section>
+        </section >
     );
 };
 

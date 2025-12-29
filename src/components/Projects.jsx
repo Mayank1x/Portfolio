@@ -34,8 +34,9 @@ const Projects = () => {
             minHeight: '100vh',
             width: '100%',
             padding: '8rem 5%',
-            background: '#050505', // Slightly different black for contrast
-            color: '#fff'
+            background: 'var(--bg-secondary)', // Use secondary background
+            color: 'var(--text-primary)',
+            transition: 'background 0.3s, color 0.3s'
         }}>
             <motion.div
                 initial={{ opacity: 0 }}
@@ -46,7 +47,7 @@ const Projects = () => {
                 <h2 style={{
                     fontSize: '3rem',
                     marginBottom: '4rem',
-                    borderBottom: '1px solid #333',
+                    borderBottom: '1px solid var(--accent-color)',
                     paddingBottom: '1rem',
                     display: 'inline-block'
                 }}>
@@ -63,29 +64,29 @@ const Projects = () => {
                             key={index}
                             whileHover={{ y: -10 }}
                             style={{
-                                background: '#0a0a0a',
-                                border: '1px solid #222',
+                                background: 'var(--bg-primary)',
+                                border: '1px solid var(--accent-color)',
                                 borderRadius: '8px',
                                 overflow: 'hidden',
                                 display: 'flex',
                                 flexDirection: 'column'
                             }}
                         >
-                            {/* Fake Project Thumbnail Area - In real life this would be an image */}
+                            {/* Fake Project Thumbnail Area */}
                             <div style={{
                                 height: '200px',
-                                background: '#111',
+                                background: 'var(--accent-color)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                borderBottom: '1px solid #222'
+                                borderBottom: '1px solid var(--accent-color)'
                             }}>
-                                <Code2 size={48} color="#333" />
+                                <Code2 size={48} color="var(--text-secondary)" />
                             </div>
 
                             <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                                 <h3 style={{ fontSize: '1.8rem', marginBottom: '1rem' }}>{project.title}</h3>
-                                <p style={{ color: '#888', marginBottom: '1.5rem', lineHeight: '1.6', flex: 1 }}>
+                                <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: '1.6', flex: 1 }}>
                                     {project.desc}
                                 </p>
 
@@ -95,7 +96,7 @@ const Projects = () => {
                                             fontSize: '0.75rem',
                                             textTransform: 'uppercase',
                                             letterSpacing: '1px',
-                                            color: '#666'
+                                            color: 'var(--text-secondary)'
                                         }}>
                                             {t}
                                         </span>
@@ -103,10 +104,10 @@ const Projects = () => {
                                 </div>
 
                                 <div style={{ display: 'flex', gap: '1.5rem', marginTop: 'auto' }}>
-                                    <a href={project.github} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#fff', fontSize: '0.9rem' }}>
+                                    <a href={project.github} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
                                         <Github size={18} /> Code
                                     </a>
-                                    <a href={project.live} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#fff', fontSize: '0.9rem' }}>
+                                    <a href={project.live} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
                                         <ExternalLink size={18} /> Live Demo
                                     </a>
                                 </div>
