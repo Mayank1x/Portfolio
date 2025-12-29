@@ -1,5 +1,5 @@
 import { useRef, useMemo, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 const vertexShader = `
@@ -58,6 +58,7 @@ const fragmentShader = `
 
 function HolographicGrid({ colorLow, colorHigh }) {
     const mesh = useRef();
+    const { viewport } = useThree();
 
     const uniforms = useMemo(() => ({
         uTime: { value: 0 },
@@ -77,6 +78,24 @@ function HolographicGrid({ colorLow, colorHigh }) {
     // Use internal state for smooth interpolation
     const targetMouse = useRef(new THREE.Vector2(0, 0));
 
+    useEffect(() => {
+        const handleMouseMove = (event) => {
+            // Convert pixel coordinates to Normalized Device Coordinates (-1 to +1)
+            const x = (event.clientX / window.innerWidth) * 2 - 1;
+            const y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Map to World Units based on the camera's viewport at z=0
+            // This ensures interaction works EVERYWHERE (Navbar, Text, etc.)
+            const worldX = x * (viewport.width / 2);
+            const worldY = y * (viewport.height / 2);
+
+            targetMouse.current.set(worldX, worldY);
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, [viewport]);
+
     useFrame((state) => {
         const { clock } = state;
         if (mesh.current) {
@@ -86,35 +105,11 @@ function HolographicGrid({ colorLow, colorHigh }) {
         }
     });
 
-    const handlePointerMove = (e) => {
-        // e.point is the exact Vec3 intersection in world space
-        // We only care about x/y relative to the plane's local space for the ripple center
-        // Since the plane is at 0,0,0, world point works, but if rotated we might need local point.
-        // However, the shader expects simple X/Y. Let's send the relative position.
-
-        // Actually, for the shader ripple calculation: distance(modelPosition.xy, uMouse)
-        // We need uMouse to be in the same coordinate space as position (Local Space).
-        // e.point is World Space.
-
-        // We can invert the mesh's matrix to get local point, or just assume World roughly equals Model 
-        // if we are just rotating the group.
-
-        // Simplest Robust Fix: Use the World point x/y, but since the mesh is tilted, 
-        // y in screen space maps to y/z on the mesh.
-
-        // Let's use the object's worldToLocal to be perfectly safe.
-        if (mesh.current) {
-            const localPoint = mesh.current.worldToLocal(e.point.clone());
-            targetMouse.current.set(localPoint.x, localPoint.y);
-        }
-    };
-
     return (
         // Lower segment count for performance (was 80, 50)
         <mesh
             ref={mesh}
             rotation={[0, 0, 0]}
-            onPointerMove={handlePointerMove}
         >
             <planeGeometry args={[40, 25, 80, 50]} />
             <shaderMaterial

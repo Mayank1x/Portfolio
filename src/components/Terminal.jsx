@@ -6,7 +6,17 @@ const Terminal = () => {
     const [input, setInput] = useState('');
     const [history, setHistory] = useState([
         { type: 'system', content: 'Welcome to MayankOS v1.0.0' },
-        { type: 'system', content: 'Type "help" to see available commands.' },
+        { type: 'system', content: 'Type "help" for commands.' },
+        {
+            type: 'system', content: `Available commands:
+  ls          - List sections
+  cd [dir]    - Go to section
+  whoami      - My Profile
+  skills      - Tech Stack
+  contact     - Socials
+  mode light  - Toggle Theme
+  clear       - Clear Console`
+        },
     ]);
 
     const containerRef = useRef(null);
@@ -34,8 +44,7 @@ const Terminal = () => {
     const handleCommand = (cmd) => {
         const cleanCmd = cmd.trim().toLowerCase();
 
-        // Audio Feedback for command entry
-        playKeystrokeSound();
+
 
         const newHistory = [...history, { type: 'user', content: cmd }];
         let output = '';
@@ -85,9 +94,8 @@ const Terminal = () => {
     };
 
     const handleKeyDown = (e) => {
-        // Play sound on every key (throttled/natural feel)
         if (e.key.length === 1 || e.key === 'Enter' || e.key === 'Backspace') {
-            playKeystrokeSound();
+
         }
         if (e.key === 'Enter') { handleCommand(input); setInput(''); }
     };
@@ -140,7 +148,7 @@ const Terminal = () => {
                         <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#28C840' }}></div>
                     </div>
                     <div style={{ flex: 1, textAlign: 'center', color: 'var(--term-text)', fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.5px' }}>
-                        mayank @ dev
+                        mayank@dev
                     </div>
                 </div>
 
@@ -189,6 +197,7 @@ const Terminal = () => {
                                 minWidth: '50px',
                                 textShadow: 'none'
                             }}
+                            placeholder='Type "help"...'
                             autoFocus
                         />
                     </div>

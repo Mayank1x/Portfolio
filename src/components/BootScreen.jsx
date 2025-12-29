@@ -41,7 +41,6 @@ const BootScreen = ({ onComplete }) => {
             const logInterval = setInterval(() => {
                 if (logIndex < sysLogs.length) {
                     setLogs(prev => [...prev, sysLogs[logIndex]]);
-                    playKeystrokeSound(); // Sound effect for each log line
                     logIndex++;
                 } else {
                     clearInterval(logInterval);

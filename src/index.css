@@ -19,6 +19,14 @@
   --spotlight-desc: #555555;
   --spotlight-desc-reveal: #dddddd;
 
+  /* Navbar (Dark Mode Pop) */
+  --nav-bg: rgba(5, 5, 5, 0.85);
+  /* Much Darker & More Opaque */
+  --nav-border: rgba(255, 255, 255, 0.25);
+  /* Brighter border */
+  --nav-glass-shadow: rgba(255, 255, 255, 0.08);
+  /* White Ambient Glow */
+
   --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
@@ -43,6 +51,12 @@ body.light-mode {
   --spotlight-text-reveal: #000000;
   --spotlight-desc: #888888;
   --spotlight-desc-reveal: #222222;
+
+  /* Navbar (Light Mode) */
+  --nav-bg: rgba(255, 255, 255, 0.75);
+  --nav-border: rgba(0, 0, 0, 0.1);
+  --nav-glass-shadow: rgba(0, 0, 0, 0.1);
+  /* Dark Shadow */
 
   filter: none;
 }

@@ -3,7 +3,7 @@ import Terminal from './Terminal';
 import InteractiveBackground from './InteractiveBackground';
 import GlitchText from './GlitchText';
 import HackerText from './HackerText';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Download } from 'lucide-react';
 
 const Hero = () => {
     return (
@@ -34,115 +34,101 @@ const Hero = () => {
                     background: 'radial-gradient(circle at left center, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 40%, transparent 80%)',
                     height: '100%'
                 }}
-                // Track mouse relative to this container for the lens effect
-                onMouseMove={(e) => {
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    e.currentTarget.style.setProperty('--x', `${x}px`);
-                    e.currentTarget.style.setProperty('--y', `${y}px`);
-                }}
             >
-                <style>
-                    {`
-                        .spotlight-container {
-                            position: relative;
-                            display: inline-block;
-                        }
-                        .spotlight-layer {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            pointer-events: none;
-                            /* Soft Gradient Mask for Realistic Flashlight */
-                            mask-image: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), black 10%, transparent 70%);
-                            -webkit-mask-image: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), black 10%, transparent 70%);
-                            z-index: 10;
-                        }
-                    `}
-                </style>
-                <div style={{ pointerEvents: 'auto' }} className="spotlight-container">
-                    {/* LAYER 1: Dimmed Base Content */}
+                <div style={{ pointerEvents: 'auto' }}>
+                    {/* LAYER 1: Base Content (Bright & Visible by Default) */}
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* Much darker base color for contrast */}
                         <h2 style={{
                             fontSize: '1.2rem',
-                            marginBottom: '1.5rem',
-                            color: 'var(--spotlight-desc)',
-                            letterSpacing: '3px',
+                            marginBottom: '1rem',
+                            color: '#28C840', // Bright Green
+                            letterSpacing: '2px',
                             fontWeight: 600,
-                            fontFamily: "'Inter', sans-serif" // Clean sans-serif
+                            fontFamily: "'Courier New', monospace"
                         }}>
-                            JAVA // REACT // DEVELOPER
+                            $ whoami
                         </h2>
                         <h1 style={{
-                            fontSize: '5.5rem',
-                            lineHeight: 0.95,
-                            marginBottom: '2rem',
+                            fontSize: '6rem',
+                            lineHeight: 1,
+                            marginBottom: '1rem',
                             fontWeight: 800,
-                            color: 'var(--spotlight-text-base)', // Almost blended with background
                             fontFamily: "'Inter', sans-serif",
-                            letterSpacing: '-2px'
+                            letterSpacing: '-3px',
+                            background: 'linear-gradient(180deg, #FFFFFF 0%, #E0E0E0 100%)', // Bright
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            filter: 'drop-shadow(0 0 25px rgba(255,255,255,0.15))' // Enhanced Glow
                         }}>
-                            CRAFTING <br />
-                            DIGITAL <br />
-                            EXPERIENCES
+                            MAYANK <br /> RATHORE
                         </h1>
-                        <p style={{
-                            fontSize: '1.2rem',
-                            maxWidth: '500px',
-                            color: 'var(--spotlight-desc)',
-                            lineHeight: 1.6,
-                            fontFamily: "'Inter', sans-serif"
+                        <h3 style={{
+                            fontSize: '2rem',
+                            marginBottom: '2rem',
+                            color: '#ccc', // Bright Grey
+                            fontWeight: 300,
+                            letterSpacing: '4px',
+                            textTransform: 'uppercase',
+                            fontFamily: "'Inter', sans-serif",
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '1rem'
                         }}>
-                            Specialize in high-performance backends and immersive frontends.
+                            <span style={{ width: '30px', height: '1px', background: '#888' }} />
+                            Full Stack Developer
+                        </h3>
+                        <p style={{
+                            fontSize: '1.1rem',
+                            maxWidth: '500px',
+                            color: '#bbb',
+                            marginBottom: '2.5rem',
+                            lineHeight: '1.6',
+                            fontFamily: "'Inter', sans-serif",
+                            fontWeight: 400
+                        }}>
+                            Turning ideas into scalable, production-ready web applications. <br />
+                            Specialized in high-performance backends.
                         </p>
-                    </motion.div>
 
-                    {/* LAYER 2: Illuminated Content (Revealed by Cursor) */}
-                    <div className="spotlight-layer" aria-hidden="true">
-                        <h2 style={{
-                            fontSize: '1.2rem',
-                            marginBottom: '1.5rem',
-                            color: 'var(--spotlight-text-reveal)',
-                            letterSpacing: '3px',
-                            fontWeight: 600,
-                            fontFamily: "'Inter', sans-serif"
-                        }}>
-                            JAVA // REACT // DEVELOPER
-                        </h2>
-                        <h1 style={{
-                            fontSize: '5.5rem',
-                            lineHeight: 0.95,
-                            marginBottom: '2rem',
-                            fontWeight: 800,
-                            color: 'var(--spotlight-text-reveal)',
-                            fontFamily: "'Inter', sans-serif",
-                            letterSpacing: '-2px'
-                        }}>
-                            CRAFTING <br />
-                            DIGITAL <br />
-                            EXPERIENCES
-                        </h1>
-                        <p style={{
-                            fontSize: '1.2rem',
-                            maxWidth: '500px',
-                            color: 'var(--spotlight-desc-reveal)',
-                            lineHeight: 1.6,
-                            fontFamily: "'Inter', sans-serif"
-                        }}>
-                            Specialize in high-performance backends and immersive frontends.
-                        </p>
-                    </div>
+                        <a href="/resume.pdf" download="Mayank_Rathore_Resume.pdf" style={{ textDecoration: 'none' }}>
+                            <button style={{
+                                marginTop: '2rem',
+                                padding: '0.8rem 1.5rem',
+                                border: '1px solid rgba(255,255,255,0.3)',
+                                background: 'rgba(255,255,255,0.05)',
+                                color: '#fff',
+                                fontFamily: "'Courier New', monospace",
+                                fontSize: '1rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                transition: 'all 0.3s',
+                                width: 'fit-content',
+                                pointerEvents: 'auto'
+                            }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.background = '#fff';
+                                    e.currentTarget.style.color = '#000';
+                                    e.currentTarget.style.borderColor = '#fff';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                                    e.currentTarget.style.color = '#fff';
+                                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
+                                }}
+                            >
+                                <Download size={18} />
+                                DOWNLOAD RESUME
+                            </button>
+                        </a>
+                    </motion.div>
                 </div>
             </div>
-
 
             {/* Terminal Layer (Right Side) */}
             <div style={{
@@ -202,7 +188,7 @@ const Hero = () => {
                     />
                 </div>
             </motion.div>
-        </section >
+        </section>
     );
 };
 
