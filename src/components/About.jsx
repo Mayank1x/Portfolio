@@ -198,15 +198,14 @@ const About = () => {
                         gridColumn: 'span 6',
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center',
-                        background: 'linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%)', // Faded / Ghost style
-                        border: '1px solid rgba(255,255,255,0.05)'
+                        justifyContent: 'center'
+                        // Removed light overrides to match dark theme
                     }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem', color: '#ffbd2e', opacity: 0.8 }}>
                             <Crown size={20} />
                             <span style={{ fontFamily: "'mononoki', monospace", letterSpacing: '1px' }}>LEADERSHIP</span>
                         </div>
-                        <h4 style={{ fontSize: '1.3rem', marginBottom: '0.8rem' }}>Co-Lead, Design Team @ E-Cell</h4>
+                        <h4 style={{ fontSize: '1.3rem', marginBottom: '0.8rem', color: '#fff' }}>Co-Lead, Design Team @ E-Cell</h4>
                         <p style={{ color: '#888', fontSize: '0.95rem', lineHeight: '1.6' }}>
                             Co-led design systems and workflows, ensuring consistency across multi-team deliverables.
                         </p>

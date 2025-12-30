@@ -51,9 +51,9 @@ const Globe3D = forwardRef((props, ref) => {
             dark: 1,
             diffuse: 2,
             mapSamples: 16000,
-            mapBrightness: 6, // Increased from 2 to 6 for visibility
+            mapBrightness: 10, // Increased to 10 for maximum visibility
             baseColor: [0.05, 0.05, 0.05],
-            markerColor: [0.15, 0.45, 0.85], // Brighter Blue for visibility
+            markerColor: [0.2, 0.5, 1], // Bright Blue to pop
             glowColor: [0.02, 0.1, 0.3], // Blue glow
             opacity: 1,
             markers: [

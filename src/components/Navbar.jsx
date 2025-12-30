@@ -15,7 +15,7 @@ const Navbar = () => {
             setScrolled(window.scrollY > 50);
 
             // Simple ScrollSpy
-            const sections = ['about', 'projects', 'contact'];
+            const sections = ['about', 'projects', 'experience', 'contact'];
             let current = '';
             for (const section of sections) {
                 const element = document.getElementById(section);
@@ -37,6 +37,7 @@ const Navbar = () => {
     const navLinks = [
         { name: 'About', href: '#about', id: 'about' },
         { name: 'Projects', href: '#projects', id: 'projects' },
+        { name: 'Experience', href: '#experience', id: 'experience' },
         { name: 'Contact', href: '#contact', id: 'contact' },
     ];
 

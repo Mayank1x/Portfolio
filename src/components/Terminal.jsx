@@ -60,10 +60,10 @@ const Terminal = () => {
   mode light  - Invert Colors
   clear       - Clear`;
                 break;
-            case cleanCmd === 'ls': output = 'about/    projects/    contact/'; break;
+            case cleanCmd === 'ls': output = 'about/    projects/    experience/    contact/'; break;
             case cleanCmd.startsWith('cd '):
                 const target = cleanCmd.split(' ')[1];
-                if (['about', 'projects', 'contact'].includes(target)) {
+                if (['about', 'projects', 'experience', 'contact'].includes(target)) {
                     output = `Navigating to ${target}...`;
                     document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
                 } else if (target === '..') output = 'At root.';

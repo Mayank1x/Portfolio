@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
+import Experience from './components/Experience';
 import Contact from './components/Contact';
 import TargetCursor from './components/TargetCursor';
 import CustomCursor from './components/CustomCursor';
@@ -37,6 +38,7 @@ function App() {
                                         <Hero />
                                         <div id="about"><About /></div>
                                         <div id="projects"><Projects /></div>
+                                        <div id="experience"><Experience /></div>
                                         <div id="contact"><Contact /></div>
                                     </main>
                                 } />
