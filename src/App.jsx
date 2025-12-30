@@ -6,9 +6,11 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import TargetCursor from './components/TargetCursor';
 import CustomCursor from './components/CustomCursor';
 import GrainOverlay from './components/GrainOverlay';
 import BootScreen from './components/BootScreen';
+import SmoothScroll from './components/SmoothScroll';
 import './index.css';
 
 function App() {
@@ -18,8 +20,10 @@ function App() {
     return (
         <Router>
             <div className="app-container">
+                <SmoothScroll />
                 <GrainOverlay />
                 <CustomCursor />
+                <TargetCursor />
 
                 <AnimatePresence mode="wait">
                     {isLoading ? (

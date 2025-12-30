@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import MagneticButton from './MagneticButton';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -110,11 +111,12 @@ const Navbar = () => {
                         const isHovered = hoveredLink === link.name;
 
                         return (
-                            <a
+                            <MagneticButton
                                 key={link.name}
                                 href={link.href}
                                 onMouseEnter={() => setHoveredLink(link.name)}
                                 onMouseLeave={() => setHoveredLink(null)}
+                                strength={0.25} // Subtle strength for nav
                                 style={{
                                     position: 'relative',
                                     color: (isActive || isHovered) ? 'var(--text-primary)' : 'var(--text-secondary)',
@@ -124,7 +126,8 @@ const Navbar = () => {
                                     fontWeight: isActive ? 700 : 500,
                                     letterSpacing: '1px',
                                     transition: 'color 0.2s',
-                                    padding: '4px 0'
+                                    padding: '4px 0',
+                                    cursor: 'pointer' // Ensure pointer
                                 }}
                             >
                                 {/* Active/Hover Brackets */}
@@ -165,7 +168,7 @@ const Navbar = () => {
                                         }}
                                     />
                                 )}
-                            </a>
+                            </MagneticButton>
                         );
                     })}
                 </div>

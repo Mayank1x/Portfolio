@@ -3,7 +3,9 @@ import Terminal from './Terminal';
 import InteractiveBackground from './InteractiveBackground';
 import GlitchText from './GlitchText';
 import HackerText from './HackerText';
+import TypewriterText from './TypewriterText';
 import { ArrowDown, Download } from 'lucide-react';
+import MagneticButton from './MagneticButton';
 
 const Hero = () => {
     return (
@@ -62,9 +64,26 @@ const Hero = () => {
                             background: 'linear-gradient(180deg, #FFFFFF 0%, #E0E0E0 100%)', // Bright
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
-                            filter: 'drop-shadow(0 0 25px rgba(255,255,255,0.15))' // Enhanced Glow
+                            filter: 'drop-shadow(0 0 25px rgba(255,255,255,0.15))', // Enhanced Glow
+                            display: 'flex', // Enable flex for typewriter alignment
+                            flexDirection: 'column'
                         }}>
-                            MAYANK <br /> RATHORE
+                            <TypewriterText
+                                text="MAYANK"
+                                speed={80}
+                                delay={500}
+                                cursorColor="#ffffff"
+                                hideCursorOnComplete={true}
+                                style={{ WebkitTextFillColor: '#fff' }}
+                            />
+                            <TypewriterText
+                                text="RATHORE"
+                                speed={80}
+                                delay={1200}
+                                cursorColor="#ffffff"
+                                hideCursorOnComplete={true}
+                                style={{ WebkitTextFillColor: '#fff' }}
+                            />
                         </h1>
                         <h3 style={{
                             fontSize: '2rem',
@@ -79,7 +98,12 @@ const Hero = () => {
                             gap: '1rem'
                         }}>
                             <span style={{ width: '30px', height: '1px', background: '#888' }} />
-                            Full Stack Developer
+                            <TypewriterText
+                                text="Full Stack Developer"
+                                speed={40}
+                                delay={2000} // Starts after Name roughly finishes
+                                cursorColor="#28C840"
+                            />
                         </h3>
                         <p style={{
                             fontSize: '1.1rem',
@@ -94,8 +118,11 @@ const Hero = () => {
                             Specialized in high-performance backends.
                         </p>
 
-                        <a href="/resume.pdf" download="Mayank_Rathore_Resume.pdf" style={{ textDecoration: 'none' }}>
-                            <button style={{
+                        <MagneticButton
+                            href="/Mayank_Rathore_Resume_December.pdf"
+                            download="Mayank_Rathore_Resume.pdf"
+                            strength={0.5}
+                            style={{
                                 marginTop: '2rem',
                                 padding: '0.8rem 1.5rem',
                                 border: '1px solid rgba(255,255,255,0.3)',
@@ -107,25 +134,19 @@ const Hero = () => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '10px',
-                                transition: 'all 0.3s',
-                                width: 'fit-content',
-                                pointerEvents: 'auto'
+                                width: 'fit-content', // Limit width for magnetic effect to work well
+                                textDecoration: 'none'
                             }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = '#fff';
-                                    e.currentTarget.style.color = '#000';
-                                    e.currentTarget.style.borderColor = '#fff';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                                    e.currentTarget.style.color = '#fff';
-                                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
-                                }}
-                            >
-                                <Download size={18} />
-                                DOWNLOAD RESUME
-                            </button>
-                        </a>
+                            whileHover={{
+                                backgroundColor: '#ffffff',
+                                color: '#000000',
+                                borderColor: '#ffffff',
+                                scale: 1.05
+                            }}
+                        >
+                            <Download size={18} />
+                            DOWNLOAD RESUME
+                        </MagneticButton>
                     </motion.div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ const CustomCursor = () => {
     const cursorX = useMotionValue(-100);
     const cursorY = useMotionValue(-100);
     const [isHovering, setIsHovering] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         const updateMousePosition = (e) => {
@@ -23,14 +24,29 @@ const CustomCursor = () => {
             }
         };
 
+        const handleScroll = () => {
+            if (window.scrollY < window.innerHeight * 0.9) {
+                setIsVisible(true);
+            } else {
+                setIsVisible(false);
+            }
+        };
+
         window.addEventListener('mousemove', updateMousePosition);
         window.addEventListener('mouseover', handleMouseOver);
+        window.addEventListener('scroll', handleScroll);
+
+        // Initial check
+        handleScroll();
 
         return () => {
             window.removeEventListener('mousemove', updateMousePosition);
             window.removeEventListener('mouseover', handleMouseOver);
+            window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    if (!isVisible) return null;
 
     return (
         <>

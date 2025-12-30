@@ -62,6 +62,7 @@ const Projects = () => {
                     {projects.map((project, index) => (
                         <motion.div
                             key={index}
+                            className="cursor-target" // Enable Target Cursor Lock-on
                             whileHover={{ y: -10 }}
                             style={{
                                 background: 'var(--bg-primary)',
