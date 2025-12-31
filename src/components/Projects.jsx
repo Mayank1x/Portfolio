@@ -201,7 +201,7 @@ const ProjectCard = ({ project, isActive, onClick, onOpenDetails }) => {
             <div style={{ position: 'absolute', bottom: 0, left: 0, width: '24px', height: '24px', borderBottom: `3px solid ${project.color}`, borderLeft: `3px solid ${project.color}`, zIndex: 2 }} />
 
             {/* Image */}
-            <div style={{ height: '45%', position: 'relative', overflow: 'hidden', borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
+            <div style={{ height: '50%', position: 'relative', overflow: 'hidden', borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
                 <div style={{
                     position: 'absolute', inset: 0,
                     backgroundImage: `url(${project.img})`,
@@ -238,7 +238,7 @@ const ProjectCard = ({ project, isActive, onClick, onOpenDetails }) => {
                 </div>
 
                 <h2 style={{
-                    fontSize: '1.8rem', fontWeight: 800, color: '#fff',
+                    fontSize: '1.4rem', fontWeight: 800, color: '#fff',
                     letterSpacing: '-0.5px', marginBottom: '0.4rem', lineHeight: '1.1',
                     textShadow: isActive ? `0 0 25px ${project.color}60` : 'none',
                     // Truncate title if too long
@@ -394,9 +394,9 @@ const Projects = () => {
             }} />
 
             {/* Header */}
-            <div style={{ zIndex: 10, textAlign: 'center', marginBottom: '5rem', pointerEvents: 'none', position: 'relative' }}>
+            <div style={{ zIndex: 10, textAlign: 'center', marginBottom: '2rem', pointerEvents: 'none', position: 'relative' }}>
                 <h1 style={{
-                    fontSize: 'clamp(3rem, 5vw, 5rem)',
+                    fontSize: 'clamp(2rem, 4vw, 3.5rem)', // Scaled down
                     color: '#fff',
                     fontWeight: 900,
                     letterSpacing: '-2px',
@@ -410,16 +410,16 @@ const Projects = () => {
             {/* Carousel */}
             <div style={{
                 position: 'relative',
-                width: '500px', height: '400px',
+                width: '400px', height: '320px', // Scaled down
                 transformStyle: 'preserve-3d',
                 transition: 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)',
                 transform: `rotateY(${rotation}deg)`,
-                marginBottom: '5rem',
+                marginBottom: '3rem',
                 willChange: 'transform' // Performance hint
             }}>
                 {projects.map((project, index) => {
                     const angle = index * (360 / projects.length);
-                    const radius = 500;
+                    const radius = 400; // Scaled down radius
 
                     return (
                         <div

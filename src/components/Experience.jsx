@@ -73,7 +73,7 @@ const Experience = () => {
             style={{
                 minHeight: '100vh',
                 width: '100%',
-                padding: '8rem 5%',
+                padding: '4rem 5%',
                 background: '#0a0a0a',
                 color: '#fff',
                 position: 'relative',
@@ -82,43 +82,32 @@ const Experience = () => {
             }}
         >
 
-            {/* Ambient Background Animation */}
-            <motion.div
-                animate={{
-                    opacity: [0.3, 0.5, 0.3],
-                    scale: [1, 1.1, 1],
-                    rotate: [0, 5, -5, 0]
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            {/* Ambient Background (Static for Performance) */}
+            <div
                 style={{
                     position: 'absolute',
                     top: '-20%', left: '10%', width: '60vw', height: '60vw',
                     background: 'radial-gradient(circle, rgba(50, 50, 100, 0.15) 0%, transparent 70%)',
                     filter: 'blur(80px)',
                     zIndex: 0,
-                    pointerEvents: 'none'
+                    pointerEvents: 'none',
+                    opacity: 0.4
                 }}
             />
-            <motion.div
-                animate={{
-                    opacity: [0.2, 0.4, 0.2],
-                    scale: [1, 1.2, 1],
-                }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 2 }}
+            <div
                 style={{
                     position: 'absolute',
                     bottom: '-10%', right: '-10%', width: '50vw', height: '50vw',
                     background: 'radial-gradient(circle, rgba(100, 50, 100, 0.1) 0%, transparent 70%)',
                     filter: 'blur(80px)',
                     zIndex: 0,
-                    pointerEvents: 'none'
+                    pointerEvents: 'none',
+                    opacity: 0.3
                 }}
             />
 
-            {/* Grid Pattern - Static or Slow Drift */}
-            <motion.div
-                animate={{ y: [0, -20, 0] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+            {/* Grid Pattern - Static */}
+            <div
                 style={{
                     position: 'absolute',
                     top: '-10%', left: '-10%', width: '120%', height: '120%',
@@ -137,11 +126,11 @@ const Experience = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    style={{ marginBottom: '4rem', display: 'flex', alignItems: 'center', gap: '1rem' }}
+                    style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}
                 >
-                    <Terminal size={40} strokeWidth={1.5} />
+                    <Terminal size={32} strokeWidth={1.5} />
                     <div>
-                        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, letterSpacing: '-2px', margin: 0, lineHeight: 1, fontFamily: "'Inter', sans-serif" }}>
+                        <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, letterSpacing: '-2px', margin: 0, lineHeight: 1, fontFamily: "'Inter', sans-serif" }}>
                             WORK EXPERIENCE
                         </h2>
                     </div>
@@ -152,7 +141,7 @@ const Experience = () => {
                     style={{
                         display: 'grid',
                         gridTemplateColumns: 'minmax(250px, 1fr) 2fr',
-                        gap: '4rem',
+                        gap: '2rem',
                         alignItems: 'start',
                     }}
                 >
@@ -177,7 +166,7 @@ const Experience = () => {
                                     }}
                                     style={{
                                         cursor: 'pointer',
-                                        padding: '1.5rem',
+                                        padding: '1rem', // Reduced padding
                                         border: '1px solid transparent',
                                         borderRadius: '8px',
                                         position: 'relative',
@@ -202,14 +191,14 @@ const Experience = () => {
                                         />
                                     )}
 
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-                                        <span style={{ fontSize: '0.75rem', fontFamily: "'Courier New', monospace", opacity: 0.5 }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                                        <span style={{ fontSize: '0.7rem', fontFamily: "'Courier New', monospace", opacity: 0.5 }}>
                                             0{exp.id}
                                         </span>
                                         <span style={{
-                                            fontSize: '0.7rem',
+                                            fontSize: '0.65rem', // Smaller text
                                             ...badgeStyle,
-                                            padding: '4px 10px',
+                                            padding: '3px 8px', // Smaller pill
                                             borderRadius: '100px',
                                             fontWeight: '600',
                                             letterSpacing: '0.5px',
@@ -222,7 +211,7 @@ const Experience = () => {
                                             {exp.type}
                                         </span>
                                     </div>
-                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', margin: 0, fontFamily: "'Inter', sans-serif", color: isActive ? '#fff' : '#aaa' }}>
+                                    <h4 style={{ fontSize: '1rem', fontWeight: 'bold', margin: 0, fontFamily: "'Inter', sans-serif", color: isActive ? '#fff' : '#aaa' }}>
                                         {exp.company}
                                     </h4>
                                 </motion.div>
@@ -279,19 +268,18 @@ const Experience = () => {
                                         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                                         style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                     >
-                                        {/* Active Badge (Top Right) */}
-                                        <div style={{
-                                            position: 'absolute', top: '2rem', right: '2rem',
-                                            display: 'flex', alignItems: 'center', gap: '6px',
-                                            fontSize: '0.8rem', color: '#666', fontFamily: "'Courier New', monospace"
-                                        }}>
-                                            <div style={{ width: 6, height: 6, background: '#0f0', borderRadius: '50%', boxShadow: '0 0 8px #0f0' }} />
-                                            ACTIVE_SESSION
-                                        </div>
-
                                         {/* Header Area */}
                                         <div style={{ marginBottom: '2.5rem' }}>
-                                            <h3 style={{ fontSize: '2.8rem', fontWeight: 800, margin: '0 0 0.5rem 0', fontFamily: "'Inter', sans-serif", letterSpacing: '-1px' }}>{activeExp.role}</h3>
+                                            {/* Active Badge (Inline now to avoid overlap) */}
+                                            <div style={{
+                                                display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.5rem',
+                                                fontSize: '0.75rem', color: '#666', fontFamily: "'Courier New', monospace"
+                                            }}>
+                                                <div style={{ width: 6, height: 6, background: '#0f0', borderRadius: '50%', boxShadow: '0 0 8px #0f0' }} />
+                                                ACTIVE_SESSION
+                                            </div>
+
+                                            <h3 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 800, margin: '0 0 0.5rem 0', fontFamily: "'Inter', sans-serif", letterSpacing: '-1px' }}>{activeExp.role}</h3>
 
                                             <a
                                                 href={activeExp.link}

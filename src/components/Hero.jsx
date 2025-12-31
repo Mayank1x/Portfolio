@@ -12,42 +12,49 @@ const Hero = () => {
         <section style={{
             height: '100vh',
             width: '100%',
+            position: 'relative',
+            overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
-            position: 'relative',
-            overflow: 'hidden'
+            justifyContent: 'center'
         }}>
             {/* Background Layer */}
             <InteractiveBackground />
 
-            {/* Left Content with Readability Vignette */}
-            <div
-                style={{
-                    flex: 1,
-                    position: 'relative',
-                    zIndex: 1,
-                    pointerEvents: 'none',
-                    userSelect: 'none',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    paddingLeft: '5%',
-                    // Vignette Mask to fade out grid behind text for readability
-                    background: 'radial-gradient(circle at left center, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 40%, transparent 80%)',
-                    height: '100%'
-                }}
-            >
-                <div style={{ pointerEvents: 'auto' }}>
-                    {/* LAYER 1: Base Content (Bright & Visible by Default) */}
+            {/* Main Content Container */}
+            <div style={{
+                display: 'flex',
+                width: '100%',
+                maxWidth: '1400px',
+                padding: '0 5%',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                zIndex: 2,
+                height: '100%',
+                marginTop: '40px' // Offset for Navbar
+            }}>
+                {/* Left Content */}
+                <div
+                    style={{
+                        flex: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        // Vignette Mask to fade out grid behind text for readability
+                        // Moved to a wrapping div for better layering if needed, or kept here.
+                        // Removing background gradient from here as it might separate the sections weirdly in grid.
+                        // Text shadow is sufficient.
+                    }}
+                >
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
                         <h2 style={{
-                            fontSize: '1.2rem',
+                            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
                             marginBottom: '1rem',
-                            color: '#28C840', // Bright Green
+                            color: '#28C840',
                             letterSpacing: '2px',
                             fontWeight: 600,
                             fontFamily: "'Courier New', monospace"
@@ -55,17 +62,17 @@ const Hero = () => {
                             $ whoami
                         </h2>
                         <h1 style={{
-                            fontSize: '6rem',
+                            fontSize: 'clamp(3.5rem, 6vw, 6rem)', // Responsive Clamp
                             lineHeight: 1,
                             marginBottom: '1rem',
                             fontWeight: 800,
                             fontFamily: "'Inter', sans-serif",
                             letterSpacing: '-3px',
-                            background: 'linear-gradient(180deg, #FFFFFF 0%, #E0E0E0 100%)', // Bright
+                            background: 'linear-gradient(180deg, #FFFFFF 0%, #E0E0E0 100%)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
-                            filter: 'drop-shadow(0 0 25px rgba(255,255,255,0.15))', // Enhanced Glow
-                            display: 'flex', // Enable flex for typewriter alignment
+                            filter: 'drop-shadow(0 0 25px rgba(255,255,255,0.15))',
+                            display: 'flex',
                             flexDirection: 'column'
                         }}>
                             <TypewriterText
@@ -86,22 +93,23 @@ const Hero = () => {
                             />
                         </h1>
                         <h3 style={{
-                            fontSize: '2rem',
+                            fontSize: 'clamp(1.2rem, 3vw, 2rem)', // Responsive Clamp
                             marginBottom: '2rem',
-                            color: '#ccc', // Bright Grey
+                            color: '#ccc',
                             fontWeight: 300,
                             letterSpacing: '4px',
                             textTransform: 'uppercase',
                             fontFamily: "'Inter', sans-serif",
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '1rem'
+                            gap: '1rem',
+                            whiteSpace: 'nowrap'
                         }}>
                             <span style={{ width: '30px', height: '1px', background: '#888' }} />
                             <TypewriterText
                                 text="Full Stack Developer"
                                 speed={40}
-                                delay={2000} // Starts after Name roughly finishes
+                                delay={2000}
                                 cursorColor="#28C840"
                             />
                         </h3>
@@ -134,7 +142,7 @@ const Hero = () => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '10px',
-                                width: 'fit-content', // Limit width for magnetic effect to work well
+                                width: 'fit-content',
                                 textDecoration: 'none'
                             }}
                             whileHover={{
@@ -149,20 +157,17 @@ const Hero = () => {
                         </MagneticButton>
                     </motion.div>
                 </div>
-            </div>
 
-            {/* Terminal Layer (Right Side) */}
-            <div style={{
-                position: 'absolute',
-                top: '50%',
-                right: '5%',
-                transform: 'translateY(-50%)',
-                zIndex: 2,
-                width: '45%',
-                maxWidth: '600px',
-                pointerEvents: 'none' // Let clicks pass through container to Terminal's drag area
-            }}>
-                <div style={{ pointerEvents: 'auto' }}>
+                {/* Terminal Layer (Right Side) - standard flex item now */}
+                <div style={{
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'center', // Centers terminal in its half
+                    alignItems: 'center',
+                    maxWidth: '600px', // Max constraint
+                    width: '100%',
+                    // On smaller screens, allow it to shrink
+                }}>
                     <Terminal />
                 </div>
             </div>
@@ -173,7 +178,7 @@ const Hero = () => {
                     position: 'absolute',
                     bottom: '50px',
                     left: '50%',
-                    x: '-50%', // Correct Framer Motion syntax for centering
+                    x: '-50%',
                     zIndex: 10,
                     opacity: 0.5
                 }}

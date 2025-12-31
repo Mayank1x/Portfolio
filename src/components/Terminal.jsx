@@ -103,8 +103,8 @@ const Terminal = () => {
     return (
         <div style={{
             width: '100%',
-            maxWidth: '600px',
-            height: '400px', // slightly taller for 3D room
+            maxWidth: '500px',
+            height: '340px', // slightly taller for 3D room
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -160,7 +160,7 @@ const Terminal = () => {
                         padding: '16px',
                         overflowY: 'auto',
                         color: 'var(--term-text)',
-                        fontSize: '0.95rem',
+                        fontSize: '0.85rem',
                         lineHeight: '1.6',
                         scrollBehavior: 'auto',
                         transform: 'translateZ(0px)' // Keeps text flat on plane

@@ -50,7 +50,7 @@ const Navbar = () => {
                 style={{
                     position: 'fixed',
                     top: '20px',
-                    left: '50%',
+                    left: '48%', // Shifted slightly left
                     transform: 'translateX(-50%)',
                     zIndex: 100,
                     width: 'fit-content',
@@ -60,10 +60,9 @@ const Navbar = () => {
                     gap: '2rem',
 
                     // Glass Pill Styling with BETTER VISIBILITY
-                    padding: scrolled ? '10px 30px' : '12px 40px',
+                    padding: scrolled ? '4px 20px' : '6px 24px', // Standardized Thin
                     borderRadius: '50px',
-                    // Use CSS variables for Theme Support, but override bg transparency
-                    // Dark Mode: slightly lighter black for contrast
+                    // Use CSS variables for Theme Support
                     backgroundColor: 'var(--nav-bg, rgba(20, 20, 20, 0.8))',
                     backdropFilter: 'blur(16px)',
                     // Stronger Glow Border
@@ -79,8 +78,8 @@ const Navbar = () => {
                 <div style={{
                     fontFamily: "'Courier New', monospace",
                     fontWeight: 'bold',
-                    fontSize: '1.2rem', // Bigger Logo
-                    color: 'var(--text-primary)',
+                    fontSize: '1rem',
+                    color: '#fff', // Brighter
                     letterSpacing: '-0.5px',
                     cursor: 'pointer',
                     userSelect: 'none',
@@ -88,7 +87,7 @@ const Navbar = () => {
                     display: 'flex',
                     alignItems: 'center'
                 }}>
-                    <span style={{ color: 'var(--text-secondary)' }}>~/</span>Mayank
+                    <span style={{ color: '#888' }}>~/</span>Mayank
                     <motion.div
                         animate={{
                             opacity: [0, 1, 0],
@@ -106,38 +105,39 @@ const Navbar = () => {
                 </div>
 
                 {/* Desktop Links */}
-                <div className="desktop-menu" style={{ display: 'flex', gap: '2rem' }}>
+                <div className="desktop-menu" style={{ display: 'flex', gap: '1.5rem' }}>
                     {navLinks.map((link) => {
                         const isActive = activeSection === link.id;
                         const isHovered = hoveredLink === link.name;
 
                         return (
-                            <MagneticButton
+                            <a
                                 key={link.name}
                                 href={link.href}
                                 onMouseEnter={() => setHoveredLink(link.name)}
                                 onMouseLeave={() => setHoveredLink(null)}
-                                strength={0.25} // Subtle strength for nav
                                 style={{
                                     position: 'relative',
-                                    color: (isActive || isHovered) ? 'var(--text-primary)' : 'var(--text-secondary)',
+                                    color: (isActive || isHovered) ? '#fff' : '#888', // High contrast active/hover
                                     textDecoration: 'none',
                                     fontFamily: "'Courier New', monospace",
-                                    fontSize: '1.1rem', // Bigger Links
+                                    fontSize: '0.9rem',
                                     fontWeight: isActive ? 700 : 500,
                                     letterSpacing: '1px',
                                     transition: 'color 0.2s',
                                     padding: '4px 0',
-                                    cursor: 'pointer' // Ensure pointer
+                                    cursor: 'pointer',
+                                    display: 'inline-flex', // Align items
+                                    alignItems: 'center'
                                 }}
                             >
-                                {/* Active/Hover Brackets */}
+                                {/* HOVER ONLY Brackets */}
                                 <span style={{
                                     display: 'inline-block',
-                                    opacity: (isActive || isHovered) ? 1 : 0,
-                                    transform: (isActive || isHovered) ? 'translateX(0)' : 'translateX(10px)',
-                                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)', // Spring
-                                    color: 'var(--text-primary)', // Visible in Dark Mode
+                                    opacity: isHovered ? 1 : 0, // Hover ONLY
+                                    transform: isHovered ? 'translateX(0)' : 'translateX(10px)',
+                                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                                    color: '#fff',
                                     marginRight: '4px'
                                 }}>[</span>
 
@@ -145,31 +145,31 @@ const Navbar = () => {
 
                                 <span style={{
                                     display: 'inline-block',
-                                    opacity: (isActive || isHovered) ? 1 : 0,
-                                    transform: (isActive || isHovered) ? 'translateX(0)' : 'translateX(-10px)',
+                                    opacity: isHovered ? 1 : 0, // Hover ONLY
+                                    transform: isHovered ? 'translateX(0)' : 'translateX(-10px)',
                                     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                                    color: 'var(--text-primary)', // Visible in Dark Mode
+                                    color: '#fff',
                                     marginLeft: '4px'
                                 }}>]</span>
 
-                                {/* Active Dot Indicator */}
+                                {/* Active Dot Indicator - Still useful for context */}
                                 {isActive && (
                                     <motion.div
                                         layoutId="nav-pill"
                                         style={{
                                             position: 'absolute',
-                                            bottom: '-6px',
+                                            bottom: '-4px', // Tighter
                                             left: '50%',
                                             x: '-50%',
                                             width: '4px',
                                             height: '4px',
                                             borderRadius: '50%',
-                                            background: 'var(--text-primary)',
-                                            boxShadow: '0 0 8px var(--text-primary)'
+                                            background: '#fff',
+                                            boxShadow: '0 0 8px #fff'
                                         }}
                                     />
                                 )}
-                            </MagneticButton>
+                            </a>
                         );
                     })}
                 </div>

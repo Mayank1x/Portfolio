@@ -49,7 +49,7 @@ const Contact = () => {
             style={{
                 minHeight: '100vh',
                 width: '100%',
-                padding: '6rem 5%',
+                padding: '4rem 5%',
                 background: '#050505',
                 color: 'var(--text-primary)',
                 position: 'relative',
@@ -61,22 +61,22 @@ const Contact = () => {
         >
             <div className="dark-grid" />
 
-            <div style={{ maxWidth: '1200px', width: '100%', zIndex: 2, display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) minmax(450px, 1.2fr)', gap: '6rem', alignItems: 'center' }}>
+            <div style={{ maxWidth: '1200px', width: '100%', zIndex: 2, display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) minmax(450px, 1.2fr)', gap: '3rem', alignItems: 'center' }}>
 
                 {/* Text Content */}
                 <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
                         <div style={{ width: '6px', height: '6px', background: '#28C840', borderRadius: '50%', boxShadow: '0 0 10px #28C840' }} />
-                        <span style={{ fontFamily: "'Courier New', monospace", color: '#28C840', letterSpacing: '2px', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                        <span style={{ fontFamily: "'Courier New', monospace", color: '#28C840', letterSpacing: '2px', fontSize: '0.85rem', fontWeight: 'bold' }}>
                             OPEN FOR WORK
                         </span>
                     </div>
 
-                    <h2 style={{ fontSize: '4.5rem', fontWeight: 800, lineHeight: 1.1, marginBottom: '2rem', letterSpacing: '-2px', color: '#fff' }}>
+                    <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', letterSpacing: '-2px', color: '#fff' }}>
                         Let's build the <br /> <span style={{ color: '#444' }}>future.</span>
                     </h2>
 
-                    <p style={{ fontSize: '1.2rem', color: '#888', marginBottom: '3rem', maxWidth: '440px', lineHeight: '1.6' }}>
+                    <p style={{ fontSize: '1rem', color: '#888', marginBottom: '2rem', maxWidth: '440px', lineHeight: '1.6' }}>
                         Got a vision? Let's turn it into reality. <br /> Send a signal and I'll get back to you.
                     </p>
 
