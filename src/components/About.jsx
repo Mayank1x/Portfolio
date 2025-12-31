@@ -104,7 +104,7 @@ const About = () => {
                                 <div style={{
                                     width: '80px',
                                     height: '80px',
-                                    borderRadius: '20px',
+                                    borderRadius: '50%', // Circular
                                     background: 'linear-gradient(145deg, rgba(30,30,30,1), rgba(10,10,10,1))',
                                     border: '1px solid rgba(255,255,255,0.1)',
                                     display: 'flex',
@@ -115,17 +115,11 @@ const About = () => {
                                     position: 'relative',
                                     overflow: 'hidden'
                                 }}>
-                                    {/* Placeholder visual */}
-                                    <div style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.1), transparent 70%)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}>
-                                        <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>Photo<br />Here</span>
-                                    </div>
+                                    <img
+                                        src="/profile.jpg"
+                                        alt="Profile"
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
                                 </div>
                                 <div>
                                     <h3 style={{ fontSize: '1.8rem', margin: 0, fontWeight: 700 }}>Mayank Rathore</h3>
@@ -145,12 +139,12 @@ const About = () => {
                                 Currently focused on strengthening my understanding of backend systems, data handling, and applied computer science fundamentals.
                             </p>
                         </div>
-                        <div style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem' }}>
-                            <MagneticButton href="#contact" strength={0.2} style={{
+                        <div style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                            <MagneticButton href="#projects-container" strength={0.2} style={{
                                 background: 'transparent',
                                 color: '#fff',
-                                border: '1px solid rgba(59, 130, 246, 0.5)',
-                                padding: '1rem 3rem',
+                                border: '1px solid rgba(59, 130, 246, 0.5)', // Blue Border
+                                padding: '1rem 2.5rem',
                                 borderRadius: '50px',
                                 fontWeight: '600',
                                 letterSpacing: '2px',
@@ -161,6 +155,23 @@ const About = () => {
                                 backdropFilter: 'blur(5px)'
                             }}>
                                 Explore My Work
+                            </MagneticButton>
+
+                            <MagneticButton href="#contact" strength={0.2} style={{
+                                background: 'transparent',
+                                color: '#fff',
+                                border: '1px solid rgba(59, 130, 246, 0.5)', // Blue Border
+                                padding: '1rem 2.5rem',
+                                borderRadius: '50px',
+                                fontWeight: '600',
+                                letterSpacing: '2px',
+                                boxShadow: '0 0 20px rgba(59, 130, 246, 0.1)', // Blue Glow
+                                textDecoration: 'none',
+                                fontSize: '0.9rem',
+                                textTransform: 'uppercase',
+                                backdropFilter: 'blur(5px)'
+                            }}>
+                                Contact Me
                             </MagneticButton>
                         </div>
                     </Card>

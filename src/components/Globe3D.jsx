@@ -42,7 +42,24 @@ const Globe3D = forwardRef((props, ref) => {
         window.addEventListener('resize', onResize);
         onResize();
 
-        const globe = createGlobe(canvasRef.current, {
+        let globe;
+
+        const observer = new IntersectionObserver(([entry]) => {
+            // If intersecting, resume. If not, pause.
+            if (entry.isIntersecting) {
+                canvasRef.current.style.opacity = 1;
+                // Re-init if needed or just let the loop run
+            } else {
+                canvasRef.current.style.opacity = 0; // Optional fade
+            }
+            // We can't easily "stop" cobe's loop without destroying, 
+            // but we can make the onRender extremely cheap.
+            canvasRef.current.dataset.visible = entry.isIntersecting;
+        }, { threshold: 0 });
+
+        if (canvasRef.current) observer.observe(canvasRef.current);
+
+        globe = createGlobe(canvasRef.current, {
             devicePixelRatio: 2,
             width: 800,
             height: 800,
@@ -50,33 +67,30 @@ const Globe3D = forwardRef((props, ref) => {
             theta: 0.15,
             dark: 1,
             diffuse: 2,
-            mapSamples: 16000,
-            mapBrightness: 10, // Increased to 10 for maximum visibility
+            mapSamples: 12000,
+            mapBrightness: 10,
             baseColor: [0.05, 0.05, 0.05],
-            markerColor: [0.2, 0.5, 1], // Bright Blue to pop
-            glowColor: [0.02, 0.1, 0.3], // Blue glow
+            markerColor: [0.2, 0.5, 1],
+            glowColor: [0.02, 0.1, 0.3],
             opacity: 1,
             markers: [
                 { location: [20.5937, 78.9629], size: 0.1 }
             ],
             onRender: (state) => {
+                // Optimization: Skip calculations if not visible
+                if (canvasRef.current.dataset.visible === 'false') return;
+
                 if (isFocusing.current) {
-                    // Smoothly interpolate towards target
                     const dist = targetPhi.current - phi.current;
-                    const speed = dist * 0.05; // Ease out
-
+                    const speed = dist * 0.05;
                     phi.current += speed;
-
-                    // Stop focusing when close enough
                     if (Math.abs(dist) < 0.01) {
                         isFocusing.current = false;
                         phi.current = targetPhi.current;
                     }
                 } else {
-                    // Default Auto-Rotation
                     phi.current += 0.003;
                 }
-
                 state.phi = phi.current;
             },
         });
@@ -84,6 +98,7 @@ const Globe3D = forwardRef((props, ref) => {
         return () => {
             globe.destroy();
             window.removeEventListener('resize', onResize);
+            observer.disconnect();
         };
     }, []);
 

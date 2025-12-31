@@ -21,7 +21,7 @@ function App() {
     return (
         <Router>
             <div className="app-container">
-                <SmoothScroll />
+                {/* <SmoothScroll /> */}
                 <GrainOverlay />
                 <CustomCursor />
                 <TargetCursor />
